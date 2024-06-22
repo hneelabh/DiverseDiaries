@@ -5,6 +5,7 @@ import IndexPage from './components/IndexPage';
 import Login from './components/Login';
 import SignUp from './components/Signup';
 import { UserContextProvider } from './components/UserContext';
+import CreatePost from './components/CreatePost';
 
 const App = () => {
   return (
@@ -27,6 +28,12 @@ const App = () => {
           <>
             <Header />
             <SignUp />
+          </>
+        }/>
+        <Route path='/create' element={
+          <>
+            <Header />
+            <CreatePost />
           </>
         }/>
 
