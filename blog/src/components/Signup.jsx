@@ -48,20 +48,19 @@ import React, { useState } from 'react';
 const SignUp = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const register = (ev) => {
+  const register = async (ev) => {
     ev.preventDefault();
-    fetch('http://localhost:4000/signup', {
+    const response = await fetch('http://localhost:4000/signup', {
       method: 'POST',
       body: JSON.stringify({ username, password }),
       headers: { 'Content-Type': 'application/json' },
-    }).then(response => response.json())
-      .then(data => {
-        console.log('Success:', data);
       })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
-  };
+    if (response.status === 200) {
+      alert("Registration successful.")
+    } else {
+      alert("Registration failed.")
+    }
+  }
 
   return (
     <form onSubmit={register} className='flex items-center justify-center min-h-screen bg-gray-100'>
