@@ -4,10 +4,12 @@ import Header from './components/Header';
 import IndexPage from './components/IndexPage';
 import Login from './components/Login';
 import SignUp from './components/Signup';
+import { UserContextProvider } from './components/UserContext';
 
 const App = () => {
   return (
     <div>
+      <UserContextProvider>
       <Routes>
         <Route path="/" element={
           <>
@@ -31,6 +33,7 @@ const App = () => {
 
 
       </Routes>
+      </UserContextProvider>
     </div>
   );
 }
