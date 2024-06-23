@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
-import ReactQuill from 'react-quill'
-import 'react-quill/dist/quill.snow.css'
-import { Navigate } from 'react-router-dom'
+import React, { useState } from 'react';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import { Navigate } from 'react-router-dom';
 
 const modules = {
     toolbar: [
@@ -47,30 +47,38 @@ const CreatePost = () => {
   }
 
   return (
-    <div>
-      <form onSubmit={createNewPost}>
+    <div className="max-w-2xl mx-auto p-6 bg-white shadow-md rounded-lg mt-6">
+      <form onSubmit={createNewPost} className="space-y-6">
         <input type='title' 
                placeholder='Title'
                value={title}
                onChange={ev => setTitle(ev.target.value)}  
+               className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-200"
         />
         <input type='summary' 
                placeholder='Summary'
                value={summary}
                onChange={ev => setSummary(ev.target.value)}               
+               className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-200"
         />
         <input type='file'
                onChange={ev => setFiles(ev.target.files)}
+               className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-200"
         />
         <ReactQuill value={content} 
                     onChange={newValue => setContent(newValue)}
                     modules={modules} 
                     formats={formats} 
+                    className="bg-white rounded-md shadow-sm"
         />
-        <button>Create Post</button>
+        <div className="flex justify-center">
+          <button className="px-4 py-2 bg-black text-white font-semibold rounded-md shadow-md hover:bg-slate-900 focus:outline-none focus:ring focus:ring-blue-200">
+            Create Post
+          </button>
+        </div>
       </form>
     </div>
   )
 }
 
-export default CreatePost
+export default CreatePost;

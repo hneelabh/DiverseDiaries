@@ -105,6 +105,12 @@ mongoose.connect('mongodb+srv://hneelabh13:ld7ZH6j1Bu3NiAPn@cluster0.6o7ss0s.mon
         );
     })
 
+    app.get('/post/:id', async (req, res) => {
+        const {id} = req.params;
+        const postDoc = await Post.findById(id).populate('author', ['username']);
+        res.json(postDoc);
+    })
+
 
 
 const PORT = 4000; // Or any other available port

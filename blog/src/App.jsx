@@ -6,6 +6,7 @@ import Login from './components/Login';
 import SignUp from './components/Signup';
 import { UserContextProvider } from './components/UserContext';
 import CreatePost from './components/CreatePost';
+import PostPage from './components/PostPage';
 
 const App = () => {
   return (
@@ -34,6 +35,12 @@ const App = () => {
           <>
             <Header />
             <CreatePost />
+          </>
+        }/>
+        <Route path='/post/:id' element={
+          <>
+            <Header />
+            <PostPage />
           </>
         }/>
 
