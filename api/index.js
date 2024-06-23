@@ -17,6 +17,7 @@ const secret = 'asdfghjkiuytrew345rtgbju765rsdfgtree45'
 app.use(cors({credentials:true, origin:'http://localhost:5173'}));
 app.use(express.json());
 app.use(cookieParser());
+app.use('/uploads', express.static(__dirname + '/uploads'));
 
 mongoose.connect('mongodb+srv://hneelabh13:ld7ZH6j1Bu3NiAPn@cluster0.6o7ss0s.mongodb.net/?retryWrites=true')
     .then(() => console.log('MongoDB connected...'))
@@ -79,17 +80,29 @@ mongoose.connect('mongodb+srv://hneelabh13:ld7ZH6j1Bu3NiAPn@cluster0.6o7ss0s.mon
         const ext = parts[parts.length - 1];
         const newPath = path+'.'+ext;
         fs.renameSync(path, newPath);
-        res.json({files:req.file})
 
-        const {title, summary, content} = req.body;
-        const postDoc = await Post.create({
-            title,
-            summary,
-            content,
-            cover:newPath,
-        });
-        // res.json(postDoc);
+        const {token} = req.cookies;
+        jwt.verify(token, secret, {}, async (err, info) => {
+            if (err) throw err;
+            const {title, summary, content} = req.body;
+            const postDoc = await Post.create({
+                title,
+                summary,
+                content,
+                cover:newPath,
+                author: info.id,
+            });
+            res.json(postDoc);
+        })
+    })
 
+    app.get('/post', async (req, res) => {
+        res.json(
+            await Post.find()
+            .populate('author', ['username'])
+            .sort({createdAt : -1})
+            .limit(20)
+        );
     })
 
 
